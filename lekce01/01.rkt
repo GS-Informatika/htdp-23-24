@@ -71,7 +71,7 @@
 ;; Aritmetiku můžeme provádět např. i na obrázcích (v BSL datový typ Image)
 ;; Přidejme "teachpack" 2htdp/image - menu Language > Add Teachpack
 ;; Můžeme také přidat pomocí kódu - "požadujeme rozšíření 2htdp/image"
-(require 2htdp/image)
+#;(require 2htdp/image)
 
 #;(circle 10 "solid" "red")
 #;(rectangle 30 20 "outline" "blue")
@@ -88,4 +88,68 @@
 
 
 
-;; Funkce a jejich definice
+;; Funkce a jejich definice - programování má být zobecnění kalkulačky!
+
+;; Chceme vytvářet předpisy které ze vstupu (nějákého typu) vytvoří výstup
+;; (klidně jiného typu)
+
+;;  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  8  | 10
+;; ---------------------------------------------------------
+;;  1  |  4  |  9  | 16  | 25  | 36  | 49  | 64  | 81  |  ?
+
+
+;; To samé můžeme udělat pro obrázek
+
+;; x
+#;(place-image (circle 5 "solid" "red")
+               50 x
+               (empty-scene 100 100))
+
+;; Můžeme říct, že chceme definovat funkci, která vezme číslo x a vrátí obrázek s tečkou v x * x
+
+;; Funkce definujeme následujícím způsobem - funkce y(x) = x*x
+#;(define (y x) (* x x))
+
+;; Takto definovanou funkci pak aplikujeme na hodnoty - vstupy
+#;(y 1)
+#;(y 2)
+#;(y 7)
+#;(y 10)
+
+;; Definice funkce je tedy ve tvaru
+#;(define (JménoFunkce PojmenováníVstupu) VýrazTělaFunkce)
+;; a aplikace funkce je ve tvaru
+#;(JménoFunkce VýrazArgumentu)
+
+;; Můžeme také definovat funkce které mají více hodnot na vstupu
+#;(define (y a b) (* a (sin b)))
+;; aplikace pak vypadá
+#;(y 1 0)
+
+;; Nyní můžeme definovat naši funkci pro obrázek
+#;(define (picture-of-dot param)
+  (place-image (circle 5 "solid" "red")
+               50 (y param)
+               (empty-scene 100 300)))
+
+#;(picture-of-dot 1)
+
+;; Funkce picture-of-dot bere na vstup číslo a vrací obrázek.
+;; Číslo na vstupu můžeme považovat za "čas" - dostáváme tak posloupnost obrázků - animaci
+;; Toho využívá funkce animate z teachpacku 2htdp/universe
+#;(require 2htdp/universe)
+#;(animate picture-of-dot)
+
+;; ----------------------------------------------------------------------------------------
+
+;; Procvičovací úloha - definujte vlastní funkci
+#;(picture-of-rotating-dot t)
+;; ve které využijete funkcí
+#;(sin t)
+#;(cos t)
+;; aby vytvořila animaci bodu pohybujícího se kruhovým pohybem.
+
+#;(define (picture-of-rotating-dot t)
+    ...)
+
+#;(animate picture-of-rotating-dot)
