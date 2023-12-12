@@ -111,6 +111,51 @@
 (define (signum x)
   (cond [(> x 0) 1]
         [(= x 0) 0]
-        [else -1]))
+        [(< x 0) -1]))
+
+;; Kondicionál má tvar
+#;(cond
+    [VýrazPodmínky1 VýslednýVýraz1]
+    [VýrazPodmínky2 VýslednýVýraz2]
+    ...
+    [VýrazPodmínkyN VýslednýVýrazN])
 
 
+;; --- CVIČENÍ ---
+
+(require 2htdp/image)
+(require 2htdp/universe)
+;; V minulé lekci jsme si ukázali funkci
+#;(animate ...)
+
+;; Animovali jsme volný pád tečky - funkce generující:
+#;(define (picture-of-dot param)
+  (place-image (circle 5 "solid" "red")
+               50 (sqr param)
+               (empty-scene 100 300)))
+
+;; Vaším úkolem bude vytvořit stejnou animaci, odehrávající se na plátně o šířce WIDTH
+;; a výšce HEIGHT s kroužkem o poloměru CIRCLE-RADIUS.
+;; Jakmile se kroužek dotkne spodního okraje scény zastaví se - nebude se dále pohybovat.
+(define WIDTH 100)
+(define HEIGHT 300)
+(define CIRCLE-RADIUS 3)
+
+(define (circle-fall t)
+  (place-image
+   (circle ...)
+   ...
+   (empty-scene ...)))
+
+
+
+#;(animate circle-fall)
+
+
+;; Hint: Rozdělte problém na více funkcí - definujte si funkci
+#;(circle-height t)
+;; která vrátí výšku ve které se má tečka nacházet v čase t.
+;; Uvnitř této funkce použíjte výraz if nebo kondicionál cond.
+
+;; --- ------- ---
+    
