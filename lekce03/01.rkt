@@ -82,6 +82,9 @@
       "sunglasses" ; Pokud je sunny #true výraz (if ...) se vyhodnotí na "sunglasses"
       "umbrella")) ; Pokud je sunny #false výraz (if ...) se vyhodnotí na "umbrella"
 
+;; Výraz if má obecně zápis
+#;(if VýrazBool VýrazTrue VýrazFalse)
+
 ;; Porovnávání čísel vede na booleany
 #;(< 1 2) #;#true
 #;(< 5 1) #;#false
@@ -96,7 +99,7 @@
       "warm"
       "not warm"))
 
-;; Občas potřebujeme porovnat více možností - vnořování if výrazůnení příliš přehledné!
+;; Občas potřebujeme porovnat více možností - vnořování if výrazů není příliš přehledné!
 (define (signum-bad x)
   (if (> x 0)
       1
@@ -117,6 +120,7 @@
     ...
     [VýrazPodmínkyN VýslednýVýrazN])
 
+#; VýrazPodmínkyX ; se vždy redukuje na boolean!
 
 ;; --- CVIČENÍ ---
 
@@ -137,10 +141,11 @@
 (define WIDTH 100)
 (define HEIGHT 300)
 (define CIRCLE-RADIUS 3)
+(define dot (circle 5 "solid" "red"))
 
 (define (circle-fall t)
   (place-image
-   (circle ...)
+   dot
    ...
    (empty-scene ...)))
 
