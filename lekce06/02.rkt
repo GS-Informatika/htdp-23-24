@@ -144,7 +144,7 @@
    (posn-x (world-state-pos state)) (posn-y (world-state-pos state))
    (empty-scene TL-WINDOW-WIDTH TL-WINDOW-HEIGHT)))
 
-(big-bang (make-world-state (make-posn 10 10)
+#;(big-bang (make-world-state (make-posn 10 10)
                             "red"
                             64)
   [on-draw tl-draw]

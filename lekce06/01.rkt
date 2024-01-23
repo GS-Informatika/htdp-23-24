@@ -44,7 +44,7 @@
 ; Represents magic attack
 
 (define-struct ranged-attack [damage])
-; RangedAttacj is a struct
+; RangedAttack is a struct
 #; (make-ranged-attack Number)
 ; Represents ranged attack
 
@@ -112,7 +112,7 @@
 #; string-downcase
 ;; má následující signaturu:
 
-;; String -> String
+; String -> String
 
 ;; Funkci tedy můžeme aplikovat na jeden String a tato aplikace vyprodukuje String.
 #;(string-downcase "ABCD")
@@ -123,7 +123,7 @@
 ;; Cvičení:
 
 ;; 1) Jakou signaturu má funkce
-#; string-number
+#; string->number
 
 ;; 2) Jakou signaturu má funkce
 #; posn-x
@@ -133,13 +133,16 @@
 
 
 
-;; Když píšeme programy, je vhodné začít s definicí datových typů - ujasníme si co potřebujeme, jak vypadají naše data
+;; Když píšeme programy, je vhodné začít s definicí datových typů - ujasníme si co potřebujeme,
+;; jak vypadají naše data
 
-;; Dále využijeme analýzu - propojení vstupu a výstupu - k napsání potřebných kroků, abychom se dostali od vstupu do programu
+;; Dále využijeme analýzu - propojení vstupu a výstupu - k napsání potřebných kroků, abychom se
+;; dostali od vstupu do programu
 ;; až k požadovanému výstupu. Pro každý mezikrok budeme mít funkci, která jej zařídí.
 ;; Při psaní funkcí nejprve napíšeme signaturu, účel a hlavičku.
 
-;; Příklad - chceme programem určit nový stav hráče na kterého útočí jiný hráč. Za každou obranu se sníží útok o 1.
+;; Příklad - chceme programem určit nový stav hráče na kterého útočí jiný hráč. Za každou obranu se
+;; sníží útok o 1.
 
 ;; Nejprve definice dat
 (define player1-weapon (make-weapon "Meč" (make-melee-attack 4)))
@@ -219,6 +222,7 @@
 
 ;; Očekávané chování funkce ukážeme v ukázce použití / testech. Můžeme si vytvořit pomocnou funkci pro
 ;; tvorbu testovacích dat
+; Number -> Player
 (define (make-test-player-with-health health)
   (make-player "test-player" health (make-defense 0 0 0) 1
                (make-weapon "test-weapon" (make-melee-attack 0)) 0))
