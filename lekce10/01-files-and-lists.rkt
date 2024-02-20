@@ -109,4 +109,43 @@
 ;; pomocné funkce second, third a fourth nebo jejich "LISP"
 ;; ekvivalenty car, cadr, caddr, cadddr
 
+; Nora Courtney 430 14
+(cons "Nora" (cons "Courtney" (cons "430" (cons "14" '()))))
+(make-work "Nora" "Courtney" 430 14)
+
 #;(read-words/line "work.txt")
+
+; List-of-String -> Work
+(define (parse-work l)
+  (make-work (first l) (second l) (string->number (third l))
+             (string->number (fourth l))))
+
+; List-of-List-of-String -> List-of-Work
+(define (parse-all-work ll)
+  (cond [(empty? ll) '()]
+        [(cons? ll) (cons (parse-work (first ll))
+                          (parse-all-work (rest ll)))]))
+
+;; wages.v2 je List-of-Work -> List-of-Payslip
+
+; Payslip -> String
+(define (payslip->string p)
+  (string-append (payslip-name p) " " (payslip-surname p)
+                 " " (number->string (payslip-pay p)) " Kč"))
+
+; List-of-Payslip -> List-of-String
+(define (stringify-payslips lop)
+  (cond [(empty? lop) '()]
+        [(cons? lop) (cons (payslip->string (first lop))
+                           (stringify-payslips (rest lop)))]))
+
+; List-of-String -> String
+(define (concat los)
+  (cond [(empty? los) ""]
+        [(cons? los) (string-append (first los)
+                                    "\n"
+                                    (concat (rest los)))]))
+
+(write-file "out.txt"
+            (concat (stringify-payslips
+                     (wages.v2 (parse-all-work (read-words/line "work.txt"))))))
