@@ -26,25 +26,47 @@
 ;; -------------------------------------------------------------------
 
 ;; Cvičení - ne každý zaměstnanec má stejnou odměnu za hodinu práce.
-;; Vytvořte datovou strukturu (+ typ) work, která bude obsahovat křestní jméno a příjmení zaměstnance, rate
-;; (tedy mzdu za hodinu) a počet odpracovaných hodin.
+;; Vytvořte datovou strukturu (+ typ) work, která bude obsahovat křestní jméno
+;; a příjmení zaměstnance, rate (tedy mzdu za hodinu) a počet odpracovaných hodin.
 
-
-
+(define-struct work [name surname rate hours])
+; Work je struktura
+#;(make-work String String Number Number)
 
 ;; Cvičení - vytvořte datovou strukturu (+ typ) payslip - výplatnice - bude obsahovat
-;; křestní jméno a příjmení zaměstnance a celkovou hrubou výplatu za týden (tedy rate * počet hodin)
+;; křestní jméno a příjmení zaměstnance a celkovou hrubou výplatu za
+;; týden (tedy rate * počet hodin)
 
-
-
+(define-struct payslip [name surname pay])
+; Payslip je struktura
+#;(make-payslip String String Number)
 
 ;; Cvičení - navrhněte funkci wages.v2 která z listu hodnot typu Work vytvoří list
 ;; hodnot typu Payslip
 
+; Work -> Payslip
+(check-expect (work->payslip (make-work "A" "B" 5 10)) (make-payslip "A" "B" 50))
+(define (work->payslip work)
+  (make-payslip (work-name work) (work-surname work)
+                (* (work-rate work) (work-hours work))))
+
+(define W1 (make-work "A" "B" 100 20))
+(define W2 (make-work "C" "D" 50 5))
+(define P1 (make-payslip "A" "B" 2000))
+(define P2 (make-payslip "C" "D" 250))
+
+; List-of-Work -> List-of-Payslip
+(check-expect (wages.v2 '()) '())
+(check-expect (wages.v2 (cons W1 (cons W2 '())))
+              (cons P1 (cons P2 '())))
+(define (wages.v2 l-o-w)
+  (cond [(empty? l-o-w) '()]
+        [(cons? l-o-w) (cons (work->payslip (first l-o-w))
+                             (wages.v2 (rest l-o-w)))]))
 
 
-
-;; Cvičení - nadesignujte funkci substitute-name která v listu stringů nahradí všechny výskyty
+;; Cvičení - nadesignujte funkci substitute-name která v listu stringů
+;; nahradí všechny výskyty
 #; "<name>"
 ;; za jméno předané v argumentu funkce
 
@@ -55,8 +77,8 @@
 
 ;; ----- Listy v souborech -----
 (require 2htdp/batch-io)
-;; Když jsme si ukazovali čtení z textových souborů, reprezentovali jsme vnitřek souboru jako
-;; jeden string. Nyní máme k dispozici další možné reprezentace!
+;; Když jsme si ukazovali čtení z textových souborů, reprezentovali jsme vnitřek
+;; souboru jako jeden string. Nyní máme k dispozici další možné reprezentace!
 
 ;; 1) List stringů - jednotlivé řádky souboru jako stringy v listu
 #;(read-lines "file.txt")
@@ -64,24 +86,27 @@
 ;; 2) List stringů - jednotlivá slova jako stringy v listu
 #;(read-words "file.txt")
 
-;; 3) List listu stringů - jednotlivá slova na řádku jako stringy v listu, každý řádek jako
-;;                         list stringů
-#;(read-words/line "file.txt")
+;; 3) List listu stringů - jednotlivá slova na řádku jako stringy v listu,
+;; každý řádek jako list stringů
+(read-words/line "file.txt")
 
 
-;; Když naopak chceme uložit data do souboru, musíme je nejdřív agregovat do jednoho strigu,
-;; tedy použít rekurzivní funkci typu List -> String
+;; Když naopak chceme uložit data do souboru, musíme je nejdřív agregovat do
+;;  jednoho strigu, tedy použít rekurzivní funkci typu List -> String
 
-;; Cvičení - výše jste implementovali funkci wages.v2 která z ListOfWork vytvářela ListOfPayslip.
-;; Máme soubor ve kterém je na řádku vždy jméno, příjmení, rate a počet odpracovaných hodin.
-;; Vaším úkolem je napsat program, který ze souboru s těmito informacemi (příkald - work.txt)
-;; vytvoří nový soubor kde bude na řádku jméno, příjmení a celková výplata za týden.
+;; Cvičení - výše jste implementovali funkci wages.v2 která z ListOfWork
+;; vytvářela ListOfPayslip. Máme soubor ve kterém je na řádku vždy
+;; jméno, příjmení, rate a počet odpracovaných hodin.
+;; Vaším úkolem je napsat program, který ze souboru s těmito informacemi
+;; (příkald - work.txt) vytvoří nový soubor kde bude na řádku jméno,
+;; příjmení a celková výplata za týden.
 ;; Použíjte již implementovanou funkci wages.v2, vytvořte funkce které ze souboru vytvoří
 ;; list hodnot Work a funkce které z listu hodnot Payslip vytvoří jediný string pro uložení
 ;; pomocí write-file (odřádkování za každým záznamem proveďte pomocí
 #; "\n"
 ;; které připojíte za každou stringovou reprezentaci Payslip)
 ;; Hint: pokud víme že má list více prvků, můžeme kromě selektoru first použít i
-;; pomocné funkce second, third a fourth nebo jejich "LISP" ekvivalenty car, cadr, caddr, cadddr
+;; pomocné funkce second, third a fourth nebo jejich "LISP"
+;; ekvivalenty car, cadr, caddr, cadddr
 
 #;(read-words/line "work.txt")
