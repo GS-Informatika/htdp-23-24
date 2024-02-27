@@ -5,7 +5,7 @@
 // LinkedList je struktura obsahující prvek a zbytek listu
 // nebo NULL
 typedef struct LinkedList {
-    void* first;
+    const void* first;
     struct LinkedList* rest;
 } LinkedList;
 
@@ -68,7 +68,7 @@ Payslip* make_payslip(const char* name, const char* surname, const double pay) {
 }
 
 // Vytvoří dynamicky alokovanou hodnotu typu Payslip z hodnoty typu Work
-Payslip* work_to_payslip(Work* work) {
+Payslip* work_to_payslip(const Work* work) {
     return make_payslip(work->name, work->surname, work->hours * work->rate);
 }
 
@@ -77,7 +77,7 @@ LinkedList* to_payslips(LinkedList* works) {
     if (works == NULL) {
         return NULL;
     }
-    return cons(work_to_payslip(works->first), to_payslips(works->rest));
+    return cons(work_to_payslip((const Work*) works->first), to_payslips(works->rest));
 }
 
 // Zparsuje string ve tvaru "Name Surname Rate Hours"
