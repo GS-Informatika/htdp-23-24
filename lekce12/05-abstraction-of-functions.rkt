@@ -81,8 +81,8 @@
 
 
 ; List-of-Person -> Number
-(define (count-amy lop)
-  (named-persion-count lop "Amy"))
+(define (count-amy.v2 lop)
+  (named-person-count lop "Amy"))
 
 
 ; List-of-Person -> Number
@@ -232,7 +232,8 @@
 ;; Abstrahované funkce jsou ve výsledku užitečnější, než specializované!
 
 ;; Cvičení
-; Infimum a supremum jsou funkce na množinách, které vybírají nejmenší a největší prvek celé množiny.
+; Infimum a supremum jsou funkce na množinách, které vybírají nejmenší a
+;; největší prvek celé množiny.
 
 
 ; NE-List-of-Numbers -> Number
